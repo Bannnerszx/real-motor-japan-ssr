@@ -1,22 +1,39 @@
 {
   "dependencies": {
+    "@expo/vector-icons": "^14.0.4",
+    "@next/bundle-analyzer": "^15.1.6",
     "expo": "^52.0.16",
-    "next": "~14.0.4",
-    "react": "18.3.1",
-    "react-dom": "18.3.1",
+    "firebase": "^11.2.0",
+    "firebase-admin": "^12.0.0",
+    "lucide-react": "^0.474.0",
+    "next": "^14.2.4",
+    "next-transpile-modules": "^10.0.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.4.0",
     "react-native": "0.76.3",
+    "react-native-super-grid": "^6.0.1",
+    "react-native-svg": "^15.11.1",
     "react-native-web": "~0.19.6"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
-    "@expo/next-adapter": "^6.0.0"
+    "@babel/plugin-transform-flow-strip-types": "^7.26.5",
+    "@expo/next-adapter": "^6.0.0",
+    "babel-loader": "^9.2.1",
+    "cross-env": "^7.0.3",
+    "esbuild": "^0.24.2",
+    "file-loader": "^6.2.0",
+    "metro-react-native-babel-preset": "^0.77.0",
+    "url-loader": "^4.1.1"
   },
   "scripts": {
     "start": "next dev",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "build": "next build"
+    "build": "next build",
+    "analyze": "cross-env ANALYZE=true npm run build"
   },
   "name": "ssr-react-native",
   "version": "1.0.0",

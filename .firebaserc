@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "samplermj"
+  },
+  "targets": {
+    "samplermj": {
+      "hosting": {
+        "dev-server-realmotorjapan": [
+          "dev-server-realmotorjapan"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
