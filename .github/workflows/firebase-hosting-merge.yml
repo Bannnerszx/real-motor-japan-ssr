@@ -12,6 +12,9 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     env:
+      # Enable Firebase CLI experiments for web frameworks
+      FIREBASE_CLI_EXPERIMENTS: webframeworks
+
       # Environment variables from GitHub Secrets
       FIREBASE_AUTH_PROVIDER_X509_CERT_URL: ${{ secrets.FIREBASE_AUTH_PROVIDER_X509_CERT_URL }}
       FIREBASE_AUTH_URI: ${{ secrets.FIREBASE_AUTH_URI }}
