@@ -14,7 +14,10 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Create Service Account Key File
-        run: printf '%s' "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SAMPLERMJ }}" > $GITHUB_WORKSPACE/service-account-key.json
+        run: |
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_BASE64 }}" | base64 -d > $GITHUB_WORKSPACE/service-account-key.json
+      - name: Verify JSON Key
+        run: cat $GITHUB_WORKSPACE/service-account-key.json
 
       - name: Install dependencies and build
         run: npm ci && npm run build
