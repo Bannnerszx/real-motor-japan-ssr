@@ -1,61 +1,6 @@
-name: Deploy to Firebase Hosting with App Hosting Config
+# Settings for Backend (on Cloud Run).
+# See https://firebase.google.com/docs/app-hosting/configure#cloud-run
+runConfig:
+  minInstances: 0
 
-on:
-  push:
-    branches:
-      - main  # Change this to your deployment branch
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    env: # Environment variables passed from GitHub Secrets
-      FIREBASE_AUTH_PROVIDER_X509_CERT_URL: ${{ secrets.FIREBASE_AUTH_PROVIDER_X509_CERT_URL }}
-      FIREBASE_AUTH_URI: ${{ secrets.FIREBASE_AUTH_URI }}
-      FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
-      FIREBASE_CLIENT_ID: ${{ secrets.FIREBASE_CLIENT_ID }}
-      FIREBASE_CLIENT_X509_CERT_URL: ${{ secrets.FIREBASE_CLIENT_X509_CERT_URL }}
-      FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
-      FIREBASE_PRIVATE_KEY_ID: ${{ secrets.FIREBASE_PRIVATE_KEY_ID }}
-      FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
-      FIREBASE_TOKEN_URI: ${{ secrets.FIREBASE_TOKEN_URI }}
-      FIREBASE_TYPE: ${{ secrets.FIREBASE_TYPE }}
-      FIREBASE_UNIVERSE_DOMAIN: ${{ secrets.FIREBASE_UNIVERSE_DOMAIN }}
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Generate apphosting.yaml with secrets
-        run: |
-          echo "Generating apphosting.yaml..."
-          cat <<EOT > apphosting.yaml
-          runConfig:
-            minInstances: 0
-
-          runtimeConfig:
-            envVariables:
-              FIREBASE_AUTH_PROVIDER_X509_CERT_URL: "$FIREBASE_AUTH_PROVIDER_X509_CERT_URL"
-              FIREBASE_AUTH_URI: "$FIREBASE_AUTH_URI"
-              FIREBASE_CLIENT_EMAIL: "$FIREBASE_CLIENT_EMAIL"
-              FIREBASE_CLIENT_ID: "$FIREBASE_CLIENT_ID"
-              FIREBASE_CLIENT_X509_CERT_URL: "$FIREBASE_CLIENT_X509_CERT_URL"
-              FIREBASE_PRIVATE_KEY: "$FIREBASE_PRIVATE_KEY"
-              FIREBASE_PRIVATE_KEY_ID: "$FIREBASE_PRIVATE_KEY_ID"
-              FIREBASE_PROJECT_ID: "$FIREBASE_PROJECT_ID"
-              FIREBASE_TOKEN_URI: "$FIREBASE_TOKEN_URI"
-              FIREBASE_TYPE: "$FIREBASE_TYPE"
-              FIREBASE_UNIVERSE_DOMAIN: "$FIREBASE_UNIVERSE_DOMAIN"
-          EOT
-
-      - name: Build the Next.js app
-        run: npm run build
-
-      - name: Deploy to Firebase Hosting with apphosting.yaml
-        uses: FirebaseExtended/action-hosting-deploy@v0
-        with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
-          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
+# Environment variables
