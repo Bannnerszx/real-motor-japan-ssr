@@ -1,158 +1,61 @@
-# Settings for Backend (on Cloud Run).
-# See https://firebase.google.com/docs/app-hosting/configure#cloud-run
-runConfig:
-  minInstances: 0
+name: Deploy to Firebase Hosting with App Hosting Config
 
-# Environment variables
-env:
-  - variable: NEXT_PUBLIC_FIREBASE_EXTENSION_API_KEY
-    value: "AIzaSyDwjLbUFMDEyXB7NT63QJonc1NXZH3w07k"
-    availability:
-      - RUNTIME
+on:
+  push:
+    branches:
+      - main  # Change this to your deployment branch
 
-  - variable: NEXT_PUBLIC_FIREBASE_EXTENSION_AUTH_DOMAIN
-    value: "samplermj.firebaseapp.com"
-    availability:
-      - RUNTIME
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-  - variable: NEXT_PUBLIC_FIREBASE_EXTENSION_AUTH_URL
-    value: "https://samplecontrolhub-a1c83-default-rtdb.asia-southeast1.firebasedatabase.app"
-    availability:
-      - RUNTIME
+    env: # Environment variables passed from GitHub Secrets
+      FIREBASE_AUTH_PROVIDER_X509_CERT_URL: ${{ secrets.FIREBASE_AUTH_PROVIDER_X509_CERT_URL }}
+      FIREBASE_AUTH_URI: ${{ secrets.FIREBASE_AUTH_URI }}
+      FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+      FIREBASE_CLIENT_ID: ${{ secrets.FIREBASE_CLIENT_ID }}
+      FIREBASE_CLIENT_X509_CERT_URL: ${{ secrets.FIREBASE_CLIENT_X509_CERT_URL }}
+      FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+      FIREBASE_PRIVATE_KEY_ID: ${{ secrets.FIREBASE_PRIVATE_KEY_ID }}
+      FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+      FIREBASE_TOKEN_URI: ${{ secrets.FIREBASE_TOKEN_URI }}
+      FIREBASE_TYPE: ${{ secrets.FIREBASE_TYPE }}
+      FIREBASE_UNIVERSE_DOMAIN: ${{ secrets.FIREBASE_UNIVERSE_DOMAIN }}
 
-  - variable: NEXT_PUBLIC_FIREBASE_EXTENSION_PROJECT_ID
-    value: "samplermj"
-    availability:
-      - RUNTIME
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-  - variable: NEXT_PUBLIC_FIREBASE_EXTENSION_STORAGE_BUCKET
-    value: "samplermj.appspot.com"
-    availability:
-      - RUNTIME
+      - name: Install dependencies
+        run: npm install
 
-  - variable: NEXT_PUBLIC_FIREBASE_EXTENSION_MESSAGING_SENDER_ID
-    value: "879567069316"
-    availability:
-      - RUNTIME
+      - name: Generate apphosting.yaml with secrets
+        run: |
+          echo "Generating apphosting.yaml..."
+          cat <<EOT > apphosting.yaml
+          runConfig:
+            minInstances: 0
 
-  - variable: NEXT_PUBLIC_FIREBASE_EXTENSION_APP_ID
-    value: "1:879567069316:web:1208cd45c8b20ca6aba2d1"
-    availability:
-      - RUNTIME
+          runtimeConfig:
+            envVariables:
+              FIREBASE_AUTH_PROVIDER_X509_CERT_URL: "$FIREBASE_AUTH_PROVIDER_X509_CERT_URL"
+              FIREBASE_AUTH_URI: "$FIREBASE_AUTH_URI"
+              FIREBASE_CLIENT_EMAIL: "$FIREBASE_CLIENT_EMAIL"
+              FIREBASE_CLIENT_ID: "$FIREBASE_CLIENT_ID"
+              FIREBASE_CLIENT_X509_CERT_URL: "$FIREBASE_CLIENT_X509_CERT_URL"
+              FIREBASE_PRIVATE_KEY: "$FIREBASE_PRIVATE_KEY"
+              FIREBASE_PRIVATE_KEY_ID: "$FIREBASE_PRIVATE_KEY_ID"
+              FIREBASE_PROJECT_ID: "$FIREBASE_PROJECT_ID"
+              FIREBASE_TOKEN_URI: "$FIREBASE_TOKEN_URI"
+              FIREBASE_TYPE: "$FIREBASE_TYPE"
+              FIREBASE_UNIVERSE_DOMAIN: "$FIREBASE_UNIVERSE_DOMAIN"
+          EOT
 
-  - variable: NEXT_PUBLIC_FIREBASE_EXTENSION_MEASUREMENT_ID
-    value: "G-L80RXVVXY6"
-    availability:
-      - RUNTIME
+      - name: Build the Next.js app
+        run: npm run build
 
-  - variable: GENERATE_SOURCEMAP
-    value: "false"
-    availability:
-      - RUNTIME
-
-  - variable: APP_CHECK_KEY
-    value: "6LdhomEqAAAAACpfAeQFKxGID3Mhmb4x6KwGN-ip"
-    availability:
-      - RUNTIME
-
-  # Cloud Functions URLs
-  - variable: NEXT_PUBLIC_CHECK_CHAT_EXISTS
-    value: "https://asia-northeast2-samplermj.cloudfunctions.net/checkChatExists"
-    availability:
-      - RUNTIME
-
-  - variable: NEXT_PUBLIC_IP_INFO
-    value: "https://asia-northeast2-samplermj.cloudfunctions.net/ipApi/ipInfo"
-    availability:
-      - RUNTIME
-
-  - variable: NEXT_PUBLIC_TIME_API
-    value: "https://asia-northeast2-samplermj.cloudfunctions.net/serverSideTimeAPI/get-tokyo-time"
-    availability:
-      - RUNTIME
-
-  - variable: NEXT_PUBLIC_ADD_CHAT_DATA
-    value: "https://asia-northeast2-samplermj.cloudfunctions.net/addChatData"
-    availability:
-      - RUNTIME
-
-  - variable: NEXT_PUBLIC_CHECK_USER_EXISTS
-    value: "https://asia-northeast2-samplermj.cloudfunctions.net/checkUserExists"
-    availability:
-      - RUNTIME
-
-  - variable: NEXT_PUBLIC_SUBMIT_USER_DATA
-    value: "https://asia-northeast2-samplermj.cloudfunctions.net/submitUserData"
-    availability:
-      - RUNTIME
-
-  - variable: NEXT_PUBLIC_FEED_BACK_DATA
-    value: "https://asia-northeast2-samplermj.cloudfunctions.net/feedbackData"
-    availability:
-      - RUNTIME
-
-  - variable: NEXT_PUBLIC_FETCH_FILE_DETAILS
-    value: "https://asia-northeast2-samplermj.cloudfunctions.net/fetchFileDetails"
-    availability:
-      - RUNTIME
-
-  - variable: NEXT_PUBLIC_UPDATE_INVOICE_AND_VEHICLE
-    value: "https://asia-northeast2-samplermj.cloudfunctions.net/updateInvoiceAndVehicle"
-    availability:
-      - RUNTIME
-
-  # Firebase Admin Account Variables
-  - variable: FIREBASE_TYPE
-    value: "service_account"
-    availability:
-      - RUNTIME
-
-  - variable: FIREBASE_PROJECT_ID
-    value: "samplermj"
-    availability:
-      - RUNTIME
-
-  - variable: FIREBASE_PRIVATE_KEY_ID
-    value: "f5465c6c3d14e67de2afa4589abc3986ed0e6b08"
-    availability:
-      - RUNTIME
-
-  - variable: FIREBASE_PRIVATE_KEY
-    value: "-----BEGIN PRIVATE KEY-----\\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCbYPYOlcYVFmHp\\nVDpKMYDVv4bmK3/L0V910KWr4HhpPo5yCwTcgA7Ri8NhhCDh/4QKAfM85E4jk+j3\\n..."
-    availability:
-      - RUNTIME
-
-  - variable: FIREBASE_CLIENT_EMAIL
-    value: "firebase-adminsdk-43mxb@samplermj.iam.gserviceaccount.com"
-    availability:
-      - RUNTIME
-
-  - variable: FIREBASE_CLIENT_ID
-    value: "110957554809228359588"
-    availability:
-      - RUNTIME
-
-  - variable: FIREBASE_AUTH_URI
-    value: "https://accounts.google.com/o/oauth2/auth"
-    availability:
-      - RUNTIME
-
-  - variable: FIREBASE_TOKEN_URI
-    value: "https://oauth2.googleapis.com/token"
-    availability:
-      - RUNTIME
-
-  - variable: FIREBASE_AUTH_PROVIDER_X509_CERT_URL
-    value: "https://www.googleapis.com/oauth2/v1/certs"
-    availability:
-      - RUNTIME
-
-  - variable: FIREBASE_CLIENT_X509_CERT_URL
-    value: "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-43mxb%40samplermj.iam.gserviceaccount.com"
-    availability:
-      - RUNTIME
-
-  - variable: FIREBASE_UNIVERSE_DOMAIN
-    value: "googleapis.com"
-    availability:
-      - RUNTIME
+      - name: Deploy to Firebase Hosting with apphosting.yaml
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
