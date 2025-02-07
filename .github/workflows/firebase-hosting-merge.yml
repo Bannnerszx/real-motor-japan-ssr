@@ -15,19 +15,6 @@ jobs:
       # Enable Firebase CLI experiments for web frameworks
       FIREBASE_CLI_EXPERIMENTS: webframeworks
 
-      # Environment variables from GitHub Secrets
-      FIREBASE_AUTH_PROVIDER_X509_CERT_URL: ${{ secrets.FIREBASE_AUTH_PROVIDER_X509_CERT_URL }}
-      FIREBASE_AUTH_URI: ${{ secrets.FIREBASE_AUTH_URI }}
-      FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
-      FIREBASE_CLIENT_ID: ${{ secrets.FIREBASE_CLIENT_ID }}
-      FIREBASE_CLIENT_X509_CERT_URL: ${{ secrets.FIREBASE_CLIENT_X509_CERT_URL }}
-      FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
-      FIREBASE_PRIVATE_KEY_ID: ${{ secrets.FIREBASE_PRIVATE_KEY_ID }}
-      FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
-      FIREBASE_TOKEN_URI: ${{ secrets.FIREBASE_TOKEN_URI }}
-      FIREBASE_TYPE: ${{ secrets.FIREBASE_TYPE }}
-      FIREBASE_UNIVERSE_DOMAIN: ${{ secrets.FIREBASE_UNIVERSE_DOMAIN }}
-
     steps:
       - uses: actions/checkout@v4
 
