@@ -15,10 +15,14 @@ jobs:
 
       - name: Create Service Account Key File
         run: |
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_BASE64 }}" | base64 -d > $GITHUB_WORKSPACE/service-account-key.json
-      - name: Verify JSON Key
-        run: cat $GITHUB_WORKSPACE/service-account-key.json
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_SAMPLERMJ }}" > $GITHUB_WORKSPACE/service-account-key.json
 
+      - name: Debug JSON Key
+        run: |
+          echo "Contents of service-account-key.json:"
+          cat $GITHUB_WORKSPACE/service-account-key.json
+          echo "End of file."
+          
       - name: Install dependencies and build
         run: npm ci && npm run build
 
