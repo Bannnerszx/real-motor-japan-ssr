@@ -12,6 +12,7 @@ jobs:
       FIREBASE_CLI_EXPERIMENTS: webframeworks
       FIREBASE_SERVICE_ACCOUNT_JSON: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_SAMPLERMJ }}
     steps:
+    
       - uses: actions/checkout@v4
 
       - name: Install dependencies and build
@@ -22,5 +23,6 @@ jobs:
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseToken: ${{ secrets.FIREBASE_TOKEN }}
+          firebaseServiceAccount: "{}"
           channelId: live
           projectId: samplermj
