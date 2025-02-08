@@ -1,7 +1,8 @@
 # @generated: @expo/next-adapter@2.1.0
 node_modules/**/*
-firebase-admin-key.json
+firebase-admin-key copy.json
 firebase-admin-key.json.base64
+firebase-admin-key.json
 .expo/*
 npm-debug.*
 *.jks
