@@ -18,8 +18,9 @@ jobs:
       - name: Decode Firebase Service Account JSON
         env:
           BASE64_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BASE64 }}
-        run: echo "$BASE64_KEY" | base64 --decode > firebase-admin-key.json
-
+        run: |
+          echo "$BASE64_KEY" | base64 --decode > firebase-service-account.json
+          
       - name: Install dependencies and build
         run: npm ci && npm run build
 
@@ -27,6 +28,6 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: firebase-admin-key.json
+          firebaseServiceAccount: '${{ cat firebase-service-account.json }}'
           channelId: live
           projectId: samplermj
