@@ -1,6 +1,11 @@
 # Settings for Backend (on Cloud Run).
-# See https://firebase.google.com/docs/app-hosting/configure#cloud-run
 runConfig:
   minInstances: 0
 
-# Environment variables
+# Environment variables and secrets
+env:
+  - variable: FIREBASE_SERVICE_ACCOUNT
+    secret: firebase-service-account
+    availability:
+      - BUILD
+      - RUNTIME
