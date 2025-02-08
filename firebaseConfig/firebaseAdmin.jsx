@@ -1,11 +1,9 @@
 import admin from 'firebase-admin';
-
+import serviceAccount from '../firebase-admin-key.json'
 if (!admin.apps.length) {
   try {
-    // Parse the service account JSON from the environment variable
-    const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON);
     admin.initializeApp({
-      credential: admin.credential.cert(serviceAccount)
+      credential: admin.credential.cert(serviceAccount),
     });
   } catch (error) {
     console.error('Firebase admin initialization error:', error);
