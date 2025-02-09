@@ -3,9 +3,3 @@ runConfig:
   minInstances: 0
 
 # Environment variables and secrets
-env:
-  - variable: FIREBASE_SERVICE_ACCOUNT
-    secret: firebase-service-account
-    availability:
-      - BUILD
-      - RUNTIME
