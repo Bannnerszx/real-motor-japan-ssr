@@ -13,9 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Create Service Account Key File
-        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SAMPLERMJ }}' > ${{ github.workspace }}/service-account-key.json
-
       - name: Install dependencies and build
         run: npm ci && npm run build
 
