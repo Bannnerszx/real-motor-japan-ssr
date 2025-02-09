@@ -8,27 +8,17 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-    # Set environment variables that are common for the build.
     env:
-      NODE_ENV: production
       FIREBASE_CLI_EXPERIMENTS: webframeworks
     steps:
-      # Step 1: Check out the repository.
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      # Step 2: Set up Node.js.
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
+      - name: Create Service Account Key File
+        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SAMPLERMJ }}' > ${{ github.workspace }}/service-account-key.json
 
-      # Step 3: Install dependencies and build the app.
-      # NODE_ENV=production ensures that Next.js loads .env.production.
       - name: Install dependencies and build
         run: npm ci && npm run build
 
-      # Step 4: Deploy to Firebase Hosting.
       - name: Deploy to Firebase Hosting
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
