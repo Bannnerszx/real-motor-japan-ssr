@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "target": "dev-server-realmotorjapan",
+    "target": "real-motor-japan-ssr",
     "source": ".",
     "ignore": [
       "firebase.json",
