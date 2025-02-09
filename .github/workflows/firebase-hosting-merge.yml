@@ -26,9 +26,7 @@ jobs:
       # Step 3: Install dependencies and build the app.
       # NODE_ENV=production ensures that Next.js loads .env.production.
       - name: Install dependencies and build
-        run: |
-          npm ci
-          npm run build
+        run: npm ci && npm run build
 
       # Step 4: Deploy to Firebase Hosting.
       - name: Deploy to Firebase Hosting
