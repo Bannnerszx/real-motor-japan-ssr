@@ -1,27 +1,59 @@
-import admin from 'firebase-admin';
+import * as admin from 'firebase-admin';
+import dotenv from 'dotenv';
 
-export function initFirebaseAdmin() {
-  if (!admin.apps.length) {
-    const serviceAccountString = process.env.FIREBASE_SERVICE_ACCOUNT;
-    if (!serviceAccountString) {
-      // In production on Cloud Run this will be injected.
-      // For local testing, make sure you have a .env.local file.
-      throw new Error('Missing required environment variable: FIREBASE_SERVICE_ACCOUNT');
-    }
+// Load environment variables from .env.production if not already loaded
+dotenv.config({ path: '.env.production' });
 
+// Helper function to remove surrounding quotes
+const stripQuotes = (val) => {
+  if (typeof val === 'string') {
+    return val.replace(/^"(.*)"$/, '$1');
+  }
+  return val;
+};
 
-    const formattedServiceAccount = serviceAccountString.replace(/\\n/g, '\n');
+// Retrieve the raw private key value
+const rawPrivateKey = process.env.SERVICE_ACCOUNT_PRIVATE_KEY;
+if (!rawPrivateKey) {
+  throw new Error('Missing required environment variable: SERVICE_ACCOUNT_PRIVATE_KEY');
+}
 
-    // Parse the JSON string to an object.
-    const serviceAccount = JSON.parse(formattedServiceAccount);
+// Process it: remove quotes and convert escaped newlines to actual newlines.
+const private_key = stripQuotes(rawPrivateKey).replace(/\\n/g, '\n');
 
-    try {
-      admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
-      });
-    } catch (error) {
-      console.error('Firebase admin initialization error:', error);
-      throw error;
-    }
+// Construct the service account object
+const serviceAccount = {
+  type: process.env.SERVICE_ACCOUNT_TYPE,
+  project_id: process.env.SERVICE_ACCOUNT_PROJECT_ID,
+  private_key_id: process.env.SERVICE_ACCOUNT_PRIVATE_KEY_ID,
+  private_key: private_key,
+  client_email: process.env.SERVICE_ACCOUNT_CLIENT_EMAIL,
+  client_id: process.env.SERVICE_ACCOUNT_CLIENT_ID,
+  auth_uri: process.env.SERVICE_ACCOUNT_AUTH_URI,
+  token_uri: process.env.SERVICE_ACCOUNT_TOKEN_URI,
+  auth_provider_x509_cert_url: process.env.SERVICE_ACCOUNT_AUTH_PROVIDER_X509_CERT_URL,
+  client_x509_cert_url: process.env.SERVICE_ACCOUNT_CLIENT_X509_CERT_URL,
+  universe_domain: process.env.SERVICE_ACCOUNT_UNIVERSE_DOMAIN,
+};
+
+// Check that none of the fields are missing:
+for (const [key, value] of Object.entries(serviceAccount)) {
+  if (!value) {
+    throw new Error(`Missing required environment variable for Firebase Admin: ${key}`);
   }
 }
+
+if (!admin.apps.length) {
+  try {
+    admin.initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+    });
+  } catch (error) {
+    console.error('Firebase admin initialization error:', error);
+  }
+}
+
+const db = admin.firestore();
+const storage = admin.storage();
+
+export { db, storage };

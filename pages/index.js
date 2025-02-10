@@ -6,18 +6,12 @@ import SEOBrandList from '../SEOListings/SEOBrandList';
 import SEOTypeList from '../SEOListings/SEOTypeList';
 import StickyFooter from '../homeComponents/StickyFooter';
 import OptimizeCarousel from '../homeComponents/OptimizeCarousel';
-import { initFirebaseAdmin } from '../firebaseConfig/firebaseAdmin';
+import { db } from '../firebaseConfig/firebaseAdmin';
+
 export async function getServerSideProps() {
-  console.log('getServerSideProps: Executing on the server');
-  
+
   try {
-    // Initialize Firebase Admin at runtime
-    initFirebaseAdmin();
-    
-    // Now get the Firestore instance
-    const db = admin.firestore();
-    
-    // Reference the Firestore collection
+
     const vehicleProductsRef = db.collection('VehicleProducts');
 
     // Create a query to filter documents with stockStatus equal to 'On-Sale' and imageCount > 0
