@@ -9,7 +9,7 @@ export function initFirebaseAdmin() {
       throw new Error('Missing required environment variable: FIREBASE_SERVICE_ACCOUNT');
     }
 
-    // Replace escaped newlines if necessary
+
     const formattedServiceAccount = serviceAccountString.replace(/\\n/g, '\n');
 
     // Parse the JSON string to an object.
