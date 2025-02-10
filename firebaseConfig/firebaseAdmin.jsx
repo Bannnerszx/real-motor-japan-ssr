@@ -1,32 +1,11 @@
 import * as admin from 'firebase-admin';
-import dotenv from 'dotenv';
-
-// Load environment variables from .env.production if not already loaded
-dotenv.config({ path: '.env.production' });
-
-// Helper function to remove surrounding quotes
-const stripQuotes = (val) => {
-  if (typeof val === 'string') {
-    return val.replace(/^"(.*)"$/, '$1');
-  }
-  return val;
-};
-
-// Retrieve the raw private key value
-const rawPrivateKey = process.env.SERVICE_ACCOUNT_PRIVATE_KEY;
-if (!rawPrivateKey) {
-  throw new Error('Missing required environment variable: SERVICE_ACCOUNT_PRIVATE_KES');
-}
-
-// Process it: remove quotes and convert escaped newlines to actual newlines.
-const private_key = stripQuotes(rawPrivateKey).replace(/\\n/g, '\n');
 
 // Construct the service account object
 const serviceAccount = {
   type: process.env.SERVICE_ACCOUNT_TYPE,
   project_id: process.env.SERVICE_ACCOUNT_PROJECT_ID,
   private_key_id: process.env.SERVICE_ACCOUNT_PRIVATE_KEY_ID,
-  private_key: private_key,
+  private_key: process.env.SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, '\n'),
   client_email: process.env.SERVICE_ACCOUNT_CLIENT_EMAIL,
   client_id: process.env.SERVICE_ACCOUNT_CLIENT_ID,
   auth_uri: process.env.SERVICE_ACCOUNT_AUTH_URI,
