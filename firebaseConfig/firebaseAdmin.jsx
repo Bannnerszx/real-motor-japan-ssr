@@ -1,20 +1,27 @@
 import admin from 'firebase-admin';
 
-if (!admin.apps.length) {
-  const serviceAccountString = process.env.FIREBASE_SERVICE_ACCOUNT &&
-    process.env.FIREBASE_SERVICE_ACCOUNT.replace(/\\n/g, '\n');
+export function initFirebaseAdmin() {
+  if (!admin.apps.length) {
+    const serviceAccountString = process.env.FIREBASE_SERVICE_ACCOUNT;
+    if (!serviceAccountString) {
+      // In production on Cloud Run this will be injected.
+      // For local testing, make sure you have a .env.local file.
+      throw new Error('Missing required environment variable: FIREBASE_SERVICE_ACCOUNT');
+    }
 
-  if (!serviceAccountString) {
-    // During build, you can opt to skip initialization.
-    console.warn('Firebase service account not set; skipping initialization.');
-  } else {
-    const serviceAccount = JSON.parse(serviceAccountString);
+    // Replace escaped newlines if necessary
+    const formattedServiceAccount = serviceAccountString.replace(/\\n/g, '\n');
+
+    // Parse the JSON string to an object.
+    const serviceAccount = JSON.parse(formattedServiceAccount);
+
     try {
       admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
       });
     } catch (error) {
       console.error('Firebase admin initialization error:', error);
+      throw error;
     }
   }
 }

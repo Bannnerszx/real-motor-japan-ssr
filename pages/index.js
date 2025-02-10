@@ -6,12 +6,16 @@ import SEOBrandList from '../SEOListings/SEOBrandList';
 import SEOTypeList from '../SEOListings/SEOTypeList';
 import StickyFooter from '../homeComponents/StickyFooter';
 import OptimizeCarousel from '../homeComponents/OptimizeCarousel';
-import { db } from '../firebaseConfig/firebaseAdmin';
-
-
+import { initFirebaseAdmin } from '../firebaseConfig/firebaseAdmin';
 export async function getServerSideProps() {
   try {
-    // Reference to the Firestore collection
+    // Initialize Firebase Admin at runtime
+    initFirebaseAdmin();
+    
+    // Now get the Firestore instance
+    const db = admin.firestore();
+    
+    // Reference the Firestore collection
     const vehicleProductsRef = db.collection('VehicleProducts');
 
     // Create a query to filter documents with stockStatus equal to 'On-Sale' and imageCount > 0
@@ -25,6 +29,7 @@ export async function getServerSideProps() {
     // Calculate the count of matching documents
     const unsoldVehicleCount = snapshot.size;
     console.log('Fetched data:', unsoldVehicleCount);
+
     return {
       props: {
         unsoldVehicleCount,
@@ -40,6 +45,7 @@ export async function getServerSideProps() {
     };
   }
 }
+
 export default function App({ unsoldVehicleCount }) {
   console.log('HOW MANY', unsoldVehicleCount)
   const brand = [
