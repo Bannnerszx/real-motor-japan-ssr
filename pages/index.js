@@ -6,9 +6,9 @@ import SEOBrandList from '../SEOListings/SEOBrandList';
 import SEOTypeList from '../SEOListings/SEOTypeList';
 import StickyFooter from '../homeComponents/StickyFooter';
 import OptimizeCarousel from '../homeComponents/OptimizeCarousel';
-import { db } from '../firebaseConfig/firebaseAdmin';
 
 export async function getServerSideProps() {
+  const { db } = await import('../firebaseConfig/firebaseAdmin');
 
   try {
 
