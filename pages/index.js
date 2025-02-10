@@ -67,7 +67,7 @@ export default function App({ unsoldVehicleCount }) {
     <div>
       <nav>
         <Link href="/about">About</Link>
-        <Link href="/products">Products</Link>
+        <Link href="/SearchCarDesign">Products</Link>
       </nav>
       <OptimizeCarousel unsoldVehicleCount={unsoldVehicleCount}/>
       <SEOBrandList logos={brand} />
