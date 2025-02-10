@@ -3,12 +3,11 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
-// Configuration for Firebase project 1
 
 
 
 
-// Configuration for Firebase project 2
+
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_EXTENSION_API_KEY,
     authDomain: process.env.NEXT_PUBLIC_FIREBASE_EXTENSION_AUTH_DOMAIN,
