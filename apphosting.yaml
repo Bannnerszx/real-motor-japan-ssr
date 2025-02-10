@@ -1,4 +1,37 @@
-# Settings for Backend (on Cloud Run).
+# apphosting.yml
 runConfig:
   minInstances: 0
-
+  env:
+    SERVICE_ACCOUNT_TYPE:
+      secret: SERVICE_ACCOUNT_TYPE
+      version: latest
+    SERVICE_ACCOUNT_PROJECT_ID:
+      secret: SERVICE_ACCOUNT_PROJECT_ID
+      version: latest
+    SERVICE_ACCOUNT_PRIVATE_KEY:
+      secret: SERVICE_ACCOUNT_PRIVATE_KEY
+      version: latest
+    SERVICE_ACCOUNT_PRIVATE_KEY_ID:
+      secret: SERVICE_ACCOUNT_PRIVATE_KEY_ID
+      version: latest
+    SERVICE_ACCOUNT_CLIENT_EMAIL:
+      secret: SERVICE_ACCOUNT_CLIENT_EMAIL
+      version: latest
+    SERVICE_ACCOUNT_CLIENT_ID:
+      secret: SERVICE_ACCOUNT_CLIENT_ID
+      version: latest
+    SERVICE_ACCOUNT_AUTH_URI:
+      secret: SERVICE_ACCOUNT_AUTH_URI
+      version: latest
+    SERVICE_ACCOUNT_TOKEN_URI:
+      secret: SERVICE_ACCOUNT_TOKEN_URI
+      version: latest
+    SERVICE_ACCOUNT_AUTH_PROVIDER_X509_CERT_URL:
+      secret: SERVICE_ACCOUNT_AUTH_PROVIDER_X509_CERT_URL
+      version: latest
+    SERVICE_ACCOUNT_CLIENT_X509_CERT_URL:
+      secret: SERVICE_ACCOUNT_CLIENT_X509_CERT_URL
+      version: latest
+    SERVICE_ACCOUNT_UNIVERSE_DOMAIN:
+      secret: SERVICE_ACCOUNT_UNIVERSE_DOMAIN
+      version: latest
