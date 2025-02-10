@@ -8,7 +8,7 @@ import StickyFooter from '../homeComponents/StickyFooter';
 import OptimizeCarousel from '../homeComponents/OptimizeCarousel';
 
 export async function getServerSideProps() {
-  const { db } = await import('../firebaseConfig/firebaseAdmin');
+  const { db } = await import('../lib/firebaseAdmin');
 
   try {
 
