@@ -1,12 +1,15 @@
 import admin from 'firebase-admin';
-const serviceAccountString = process.env.FIREBASE_SERVICE_ACCOUNT;
+
+// Retrieve and (optionally) fix newlines in the service account JSON
+const serviceAccountString = process.env.FIREBASE_SERVICE_ACCOUNT &&
+  process.env.FIREBASE_SERVICE_ACCOUNT.replace(/\\n/g, '\n');
+
 if (!serviceAccountString) {
   throw new Error('Missing required environment variable: FIREBASE_SERVICE_ACCOUNT');
 }
 
 // Parse the JSON string to an object.
 const serviceAccount = JSON.parse(serviceAccountString);
-
 
 if (!admin.apps.length) {
   try {
