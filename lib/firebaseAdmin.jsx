@@ -22,7 +22,7 @@ if (!admin.apps.length) {
     universe_domain: process.env.SERVICE_ACCOUNT_UNIVERSE_DOMAIN,
   };
 
-  // Validate that all required fields are present.
+ 
   for (const [key, value] of Object.entries(serviceAccount)) {
     if (!value) {
       throw new Error(
