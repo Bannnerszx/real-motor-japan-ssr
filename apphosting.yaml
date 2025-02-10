@@ -1,4 +1,4 @@
-# apphosting.yml
+# apphosting.yaml
 runConfig:
   minInstances: 0
   env:
