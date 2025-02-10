@@ -5,4 +5,4 @@ runConfig:
 # Environment variables and secrets
 secrets:
   - key: FIREBASE_SERVICE_ACCOUNT
-    secret: projects/samplermj/secrets/firebase-service-account/versions/latest
+    secret: projects/879567069316/secrets/firebase-service-account
