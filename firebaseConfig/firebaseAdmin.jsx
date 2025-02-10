@@ -15,7 +15,7 @@ const stripQuotes = (val) => {
 // Retrieve the raw private key value
 const rawPrivateKey = process.env.SERVICE_ACCOUNT_PRIVATE_KEY;
 if (!rawPrivateKey) {
-  throw new Error('Missing required environment variable: SERVICE_ACCOUNT_PRIVATE_KEY');
+  throw new Error('Missing required environment variable: SERVICE_ACCOUNT_PRIVATE_KES');
 }
 
 // Process it: remove quotes and convert escaped newlines to actual newlines.
