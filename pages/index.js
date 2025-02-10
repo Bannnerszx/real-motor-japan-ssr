@@ -8,6 +8,8 @@ import StickyFooter from '../homeComponents/StickyFooter';
 import OptimizeCarousel from '../homeComponents/OptimizeCarousel';
 import { initFirebaseAdmin } from '../firebaseConfig/firebaseAdmin';
 export async function getServerSideProps() {
+  console.log('getServerSideProps: Executing on the server');
+  
   try {
     // Initialize Firebase Admin at runtime
     initFirebaseAdmin();
