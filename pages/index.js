@@ -1,12 +1,12 @@
 
 import dynamic from 'next/dynamic';
 const HomePage = dynamic(() => import('../homeComponents/Home'), { ssr: false });
-import Link from 'next/link';
 import SEOBrandList from '../SEOListings/SEOBrandList';
 import SEOTypeList from '../SEOListings/SEOTypeList';
 import StickyFooter from '../homeComponents/StickyFooter';
 import OptimizeCarousel from '../homeComponents/OptimizeCarousel';
 import { db } from '../lib/firebaseAdmin';
+import HomeHeader from '../headerComponents/HomeHeader';
 export async function getServerSideProps() {
 
   try {
@@ -65,15 +65,13 @@ export default function App({ unsoldVehicleCount }) {
   ];
   return (
     <div>
-      <nav>
-        <Link href="/about">About</Link>
-        <Link href="/SearchCarDesign">Products</Link>
-      </nav>
-      <OptimizeCarousel unsoldVehicleCount={unsoldVehicleCount}/>
+      <HomeHeader />
+      <OptimizeCarousel unsoldVehicleCount={unsoldVehicleCount} />
       <SEOBrandList logos={brand} />
       <SEOTypeList types={types} />
-      <HomePage />
-
+      <div style={{zIndex: -999}}>
+        <HomePage />
+      </div>
       <StickyFooter />
     </div>
   );

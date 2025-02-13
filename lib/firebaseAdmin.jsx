@@ -1,5 +1,9 @@
 // lib/firebaseAdmin.js
 import * as admin from 'firebase-admin';
+//*******************//
+//DO NOT USE THIS SERVICE ACCOUNTS IF ON PRODUCTION MODE. USE ADMIN DIRECTLY
+//*******************//
+
 
 // Ensure that this code only runs on the server.
 if (!admin.apps.length) {

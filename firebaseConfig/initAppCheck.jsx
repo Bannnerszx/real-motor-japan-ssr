@@ -1,9 +1,11 @@
 import { projectExtensionFirebase } from './firebaseConfig';
 
 export let isAppCheckInitialized = false; // Export the variable
-const appCheckKey = process.env.APP_CHECK_KEY;
+const appCheckKey = process.env.NEXT_PUBLIC_APP_CHECK_KEY;
 // Your predefined Firebase app instance and reCAPTCHA site key
 const siteKey = appCheckKey;
+
+console.log('Site key:', appCheckKey);
 
 
 export async function initializeAppCheckIfNeeded() {

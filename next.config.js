@@ -20,7 +20,8 @@ const nextConfig = withBundleAnalyzer(
       "@react-native/assets-registry",
       "expo-modules-core",
       "react-native-super-grid",
-      "@expo/next-adapter"
+      "@expo/next-adapter",
+      "react-image-gallery"
     ],
     experimental: {
       forceSwcTransforms: true,
