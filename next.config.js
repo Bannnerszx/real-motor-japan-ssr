@@ -21,7 +21,17 @@ const nextConfig = withBundleAnalyzer(
       "expo-modules-core",
       "react-native-super-grid",
       "@expo/next-adapter",
-      "react-image-gallery"
+      "react-image-gallery",
+      "native-base",
+      "normalize-css-color",
+      "react-native-calendars",
+      "expo-document-picker",
+      "jspdf",
+      "html2canvas",
+      "react-native-view-shot",
+      "pdfjs-dist",
+      "react-native-qrcode-svg",
+      "react-native-swipe-gestures"
     ],
     experimental: {
       forceSwcTransforms: true,
@@ -67,6 +77,27 @@ const nextConfig = withBundleAnalyzer(
           },
         },
       });
+      config.module.rules.push({
+        test: /\.js$/,
+        include: /node_modules[\\\/]react-native-view-shot/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['next/babel'],
+            plugins: [
+              '@babel/plugin-transform-flow-strip-types',
+              '@babel/plugin-proposal-class-properties'
+            ],
+          },
+        },
+      });
+
+      if (!isServer) {
+        config.resolve.fallback = {
+          ...config.resolve.fallback,
+          canvas: false,
+        };
+      }
 
       // Alias the native file to your stub
       config.resolve.alias = {

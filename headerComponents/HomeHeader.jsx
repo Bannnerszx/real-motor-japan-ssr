@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Link from "next/link";
-
+import { AuthContext } from "../apiContext/AuthProvider";
 export default function HomeHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const { userEmail, logout } = useContext(AuthContext)
   return (
     <nav className="navbar">
       <div className="navbar-brand">
@@ -43,12 +43,26 @@ export default function HomeHeader() {
         </div>
 
         <div className="auth-buttons">
-          <Link href="/signup" className="btn btn-signup">
-            Sign Up
-          </Link>
-          <Link href="/login" className="btn btn-login">
-            Log In
-          </Link>
+          {!userEmail ? (
+            <>
+              <Link href="/signup" className="btn btn-signup">
+                Sign Up
+              </Link>
+              <Link href="/login" className="btn btn-login">
+                Log In
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link href="/profile" className="btn btn-profile">
+                Profile
+              </Link>
+              <button onClick={logout} className="btn btn-profile">
+                Logout
+              </button>
+            </>
+
+          )}
         </div>
       </div>
     </nav>

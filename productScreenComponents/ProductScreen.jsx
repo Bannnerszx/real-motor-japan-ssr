@@ -2,7 +2,6 @@
 'use client'
 import React, { useEffect, useState, useContext, useRef, useCallback } from 'react';
 import { Platform, View, Text, TouchableWithoutFeedback, Image, Easing, TouchableOpacity, Button, StyleSheet, ScrollView, Dimensions, Linking, FlatList, Pressable, TextInput, Modal, Animated as AnimatedRN, useWindowDimensions, ActivityIndicator } from 'react-native';
-import { useRouter } from 'next/router';
 import { Ionicons, AntDesign, FontAwesome, Foundation, Entypo, Fontisto, MaterialCommunityIcons, Octicons } from '@expo/vector-icons';
 import { doc, getDoc, onSnapshot, serverTimestamp, addDoc, collection, getDocs, setDoc, query, orderBy, limit, arrayUnion, updateDoc, where, count } from "firebase/firestore";
 import { AuthContext } from '../apiContext/AuthProvider';
@@ -15,8 +14,8 @@ import moment from 'moment';
 import Svg, { Path, } from "react-native-svg";
 import ImageGallery from "react-image-gallery";
 import { Feather } from '@expo/vector-icons';
-import 'react-image-gallery/styles/css/image-gallery.css'; 
-
+import 'react-image-gallery/styles/css/image-gallery.css';
+import { useRouter } from 'next/router';
 const checkChatExists = process.env.NEXT_PUBLIC_CHECK_CHAT_EXISTS;
 const ipInfo = process.env.NEXT_PUBLIC_IP_INFO;
 const timeApi = process.env.NEXT_PUBLIC_TIME_API;
@@ -1095,7 +1094,7 @@ const MakeAChat = ({ modalTrue, setModalTrue, section1Ref, scrollToSectionWithOf
         }
     }, [userEmail]);
     //MAKE MODAL HERE
-    const navigate = ''; // Use the useNavigate hook here
+    const navigate = useRouter(); // Use the useNavigate hook here
 
     const [carData, setCarData] = useState([]);
     console.log('CHECK THE CHASSIS:', carData.chassisNumber);
@@ -1160,7 +1159,11 @@ const MakeAChat = ({ modalTrue, setModalTrue, section1Ref, scrollToSectionWithOf
 
         if (!auth) {
             setModalTrue(false);
-            navigate('/LoginForm', { state: { from: { pathname: `/ProductScreen/${productId}` } } });
+            navigate.push({
+                pathname: "/LoginForm",
+                query: { from: `/ProductScreen/${productId}` },
+            });
+
             return;
         }
 
@@ -1168,7 +1171,11 @@ const MakeAChat = ({ modalTrue, setModalTrue, section1Ref, scrollToSectionWithOf
 
         if (!user) {
             setModalTrue(false);
-            navigate('/LoginForm', { state: { from: { pathname: `/ProductScreen/${productId}` } } });
+            navigate.push({
+                pathname: "/LoginForm",
+                query: { from: `/ProductScreen/${productId}` },
+            });
+
             return;
         }
 
@@ -1202,7 +1209,11 @@ const MakeAChat = ({ modalTrue, setModalTrue, section1Ref, scrollToSectionWithOf
         if (!userEmail) {
             console.error("User is not authenticated.");
             setModalTrue(false);
-            navigate('/LoginForm', { state: { from: { pathname: `/ProductScreen/${productId}` } } });
+            navigate.push({
+                pathname: "/LoginForm",
+                query: { from: `/ProductScreen/${productId}` },
+            });
+
             return;
         }
 
@@ -1235,7 +1246,11 @@ const MakeAChat = ({ modalTrue, setModalTrue, section1Ref, scrollToSectionWithOf
         if (!isFormComplete) {
             console.error("User's form is not complete.");
             setModalTrue(false);
-            navigate('/LoginForm', { state: { from: { pathname: `/ProductScreen/${productId}` } } });
+            navigate.push({
+                pathname: "/LoginForm",
+                query: { from: `/ProductScreen/${productId}` },
+              });
+              
             return;
         }
 
@@ -1259,7 +1274,7 @@ const MakeAChat = ({ modalTrue, setModalTrue, section1Ref, scrollToSectionWithOf
                 alert(chatResponse.data.message); // Notify the user if chat exists
                 setModalTrue(false);
                 setIsLoading(false);
-                navigate(`/ProfileFormChatGroup/chat_${productId}_${userEmail}`); // Navigate to existing chat
+                navigate.push(`/transaction/chat_${productId}_${userEmail}`); // Navigate to existing chat
                 return; // Stop further execution
             }
 
@@ -1334,7 +1349,7 @@ const MakeAChat = ({ modalTrue, setModalTrue, section1Ref, scrollToSectionWithOf
             setIsErrorCountry(false);
             setIsErrorCheck(false);
             setIsLoading(false);
-            navigate(`/ProfileFormChatGroup/chat_${productId}_${userEmail}`);
+            navigate.push(`/transactions/chat_${productId}_${userEmail}`);
         }
     };
     /*
@@ -1426,7 +1441,7 @@ const MakeAChat = ({ modalTrue, setModalTrue, section1Ref, scrollToSectionWithOf
                             style={{ backgroundColor: '#007BFF', padding: 10, borderRadius: 5 }}
                             onPress={() => {
                                 closeAlreadyInquiredModal();
-                                navigate('/ProfileFormTransaction');
+                                navigate.push('/ProfileFormTransaction');
                             }}
                         >
                             <Text style={{ color: 'white', textAlign: 'center', fontSize: 16 }}>Go to Profile</Text>
@@ -1749,7 +1764,7 @@ const SearchByTypes = ({ carItems, navigate }) => {
         }).format(item.fobPrice * 0.0068).replace('.00', '');
         return (
             <Pressable
-                onPress={() => { navigate(`/ProductScreen/${item.stockID}`) }}
+                onPress={() => { navigate.push(`/ProductScreen/${item.stockID}`) }}
                 style={({ pressed }) => [
                     {
                         opacity: pressed ? 0.5 : 1,
@@ -1815,7 +1830,7 @@ const SearchByTypes = ({ carItems, navigate }) => {
                             <SquareGrays />
                         </View>
                     </View>
-                    <TouchableOpacity style={styles.button} onPress={() => navigate('/SearchCarDesign')}>
+                    <TouchableOpacity style={styles.button} onPress={() => navigate.push('/SearchCarDesign')}>
                         <Text style={{ fontWeight: '600', fontSize: 12, color: 'white' }}>View all</Text>
                     </TouchableOpacity>
                 </View>
@@ -1850,7 +1865,7 @@ const SearchByTypes = ({ carItems, navigate }) => {
 
 };
 const StickyFooter = ({ handlePolicyClick, setContactUsOpen }) => {
-    const navigate = '';
+    const navigate = useRouter();
     const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);
     useEffect(() => {
         const handleDimensionsChange = ({ window }) => {
@@ -2098,16 +2113,16 @@ const StickyFooter = ({ handlePolicyClick, setContactUsOpen }) => {
                     <>
                         <View style={styles.linkSection}>
                             <Text style={styles.sectionTitle}>Contents</Text>
-                            <Pressable onPress={() => { navigate('/SearchCarDesign') }}>
+                            <Pressable onPress={() => navigate.push('/SearchCarDesign')}>
                                 <Text style={styles.linkText}>Car Stock</Text>
                             </Pressable>
-                            <Pressable onPress={() => { navigate('/', { replace: true }) }}>
+                            <Pressable onPress={() => navigate.replace('/')}>
                                 <Text style={styles.linkText}>How to Buy</Text>
                             </Pressable>
-                            <Pressable onPress={() => { navigate('/AboutUs') }}>
+                            <Pressable onPress={() => navigate.push('/AboutUs')}>
                                 <Text style={styles.linkText}>About Us</Text>
                             </Pressable>
-                            <Pressable onPress={() => { navigate('/LocalIntroduction') }}>
+                            <Pressable onPress={() => navigate.push('/LocalIntroduction')}>
                                 <Text style={styles.linkText}>Local Introduction</Text>
                             </Pressable>
                             <Pressable onPress={() => { setContactUsOpen(true) }}>
@@ -2184,7 +2199,7 @@ const StickyFooter = ({ handlePolicyClick, setContactUsOpen }) => {
     );
 };
 const SocialMedia = ({ carData, userEmail }) => {
-    const navigate = '';
+    const navigate = useRouter();
     const [screenWidth, setScreenWidth] = useState(Dimensions.get('window').width);
     useEffect(() => {
         const handleDimensionsChange = ({ window }) => {
@@ -2283,8 +2298,10 @@ const SocialMedia = ({ carData, userEmail }) => {
     const handleFavorite = () => {
         if (!userEmail) {
             // Redirect to LoginForm if user is not logged in
-            navigate('/LoginForm', { state: { from: { pathname: `/ProductScreen/${productId}` } } });
-
+            navigate.push({
+                pathname: "/login",
+                query: { from: `/ProductScreen/${productId}` }, // Pass product ID as a query param
+            });
             return;
         }
 
@@ -2769,7 +2786,7 @@ const ProductDetailScreen = ({ productId }) => {
 
     // const totalPriceCalculation = (selectedChatData.fobPrice * selectedChatData.jpyToUsd) + (selectedChatData.m3 * selectedChatData.freightPrice);
 
-    const navigate = '';
+    const navigate = useRouter();
     const [carData, setCarData] = useState({});
     const JapanPort = carData.port
     const carName = carData.carName;
@@ -2839,7 +2856,7 @@ const ProductDetailScreen = ({ productId }) => {
                     setAllImageUrl(vehicleData?.images || [])
                 } else {
                     // Vehicle data not found, set a specific message or data
-                    navigate('/vehicle-not-found');// You can set a custom message or data here
+                    navigate.push('/vehicle-not-found');// You can set a custom message or data here
                 }
             } catch (error) {
                 console.error('Error fetching vehicle data:', error);
