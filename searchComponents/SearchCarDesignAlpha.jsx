@@ -5858,7 +5858,7 @@ const SearchCarDesignAlpha = () => {
                     <View style={{
                         width: '100%',
                         height: 150,
-
+                        marginTop: '3%'
                     }}>
                         <ImageBackground
                             source={{ uri: imageSrc }}
@@ -5886,7 +5886,7 @@ const SearchCarDesignAlpha = () => {
 
                     </View>
 
-                    <View style={{ marginTop: '-5%' }}>
+                    <View style={{ marginTop: 1 }}>
 
                         {screenWidth <= 962 && (
 

@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
 .navbar {
     display: flex;
     align-items: center;
@@ -10,7 +16,7 @@
     left: 0;
     right: 0;
     z-index: 9999;
-    height: 64px;
+    height: 55px;
   }
   
   .navbar-brand {
@@ -26,7 +32,7 @@
   }
   
   .logo-text {
-    font-size: 1.25rem;
+    font-size: 1.35rem;
     font-weight: 700;
     color: #000;
     letter-spacing: 0.5px;

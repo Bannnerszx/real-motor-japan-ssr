@@ -2,6 +2,7 @@ import React from "react";
 import dynamic from "next/dynamic";
 const SearchCarDesignAlpha = dynamic(() => import('../../searchComponents/SearchCarDesignAlpha'), { ssr: false });
 import { db } from "../../lib/firebaseAdmin";
+import HomeHeader from "../../headerComponents/HomeHeader";
 export async function getServerSideProps() {
 
   try {
@@ -39,6 +40,7 @@ export async function getServerSideProps() {
 export default function CarSearch() {
   return (
     <div>
+      <HomeHeader />
       <SearchCarDesignAlpha />
     </div>
   )

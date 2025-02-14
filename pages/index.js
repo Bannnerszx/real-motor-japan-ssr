@@ -65,13 +65,15 @@ export default function App({ unsoldVehicleCount }) {
   ];
   return (
     <div>
-      <HomeHeader />
+      <div style={{zIndex: 999}}>
+        <HomeHeader />
+      </div>
       <OptimizeCarousel unsoldVehicleCount={unsoldVehicleCount} />
       <SEOBrandList logos={brand} />
       <SEOTypeList types={types} />
-      <div style={{zIndex: -999}}>
-        <HomePage />
-      </div>
+
+      <HomePage />
+
       <StickyFooter />
     </div>
   );

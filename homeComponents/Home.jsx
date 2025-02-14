@@ -2708,9 +2708,8 @@ const HomePage = ({ }) => {
 
             <View style={{
                 flex: 3,
-                zIndex: 9999
+                zIndex: 950
             }}>
-
                 <SearchQuery
                     // fetchBodyTypes={fetchBodyTypes}
                     // fetchModels={fetchModels}

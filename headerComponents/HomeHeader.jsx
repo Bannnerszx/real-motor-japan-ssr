@@ -25,13 +25,13 @@ export default function HomeHeader() {
 
       <div className={`navbar-menu ${isMenuOpen ? "active" : ""}`}>
         <div className="nav-links">
-          <Link href="/car-stock" className="nav-link">
+          <Link href="/SearchCarDesign" className="nav-link">
             Car Stock
           </Link>
           <Link href="/how-to-buy" className="nav-link">
             How to Buy
           </Link>
-          <Link href="/about-us" className="nav-link">
+          <Link href="/aboutus" className="nav-link">
             About Us
           </Link>
           <Link href="/local" className="nav-link">
