@@ -4272,7 +4272,7 @@ const ChatPaymentNotificationBar = ({ setPaymentModalVisible, selectedChatData, 
     );
 };
 
-const ChatD = ({ userEmail, chatId, makeTrueRead, inputRefKeyboard, bookingData, accountData, openModalRequest, updateReadby, scrollViewRef, modalVisible, selectedChatData, invoiceData }) => {
+const ChatD = ({ carId,userEmail, chatId, makeTrueRead, inputRefKeyboard, bookingData, accountData, openModalRequest, updateReadby, scrollViewRef, modalVisible, selectedChatData, invoiceData }) => {
     //BREAKPOINT
     const activeChatId = chatId;
     
@@ -12347,26 +12347,7 @@ const ProfileFormChatGroup = ({ chatId, userEmail, stockId }) => {
     const [isValidId, setIsValidId] = useState(null); // Track if the ID is valid
 
     // Define the expected pattern for "chat_<carID>_<email>"
-    const validChatIdPattern = /^chat_\d+_.+@.+\..+$/;
-
-    useEffect(() => {
-        const validateChatId = async () => {
-
-            if (!validChatIdPattern.test(activeChatId)) {
-                setIsValidId(false);
-                return;
-            }
-
-            // Attempt to fetch the document from Firestore
-            const docRef = doc(projectExtensionFirestore, "chats", activeChatId); // Update "chatCollection" with your collection name
-            const docSnap = await getDoc(docRef);
-
-            // Set validation result based on document existence
-            setIsValidId(docSnap.exists());
-        };
-
-        validateChatId();
-    }, [activeChatId]);
+   
 
     // If isValidId is false, navigate to error
     if (isValidId === false) {
@@ -12950,6 +12931,7 @@ const ProfileFormChatGroup = ({ chatId, userEmail, stockId }) => {
                                                 )}
 
                                                 <ChatD
+                                                    carId={stockId}
                                                     userEmail={userEmail}
                                                     chatId={chatId}
                                                     makeTrueRead={makeTrueRead}
@@ -13126,6 +13108,7 @@ const ProfileFormChatGroup = ({ chatId, userEmail, stockId }) => {
                                         {orderModalVisible && (<OrderItem invoiceData={invoiceData} orderModalVisible={orderModalVisible} handleOrderModal={handleOrderModal} openModalRequest={openModalRequest} chatField={chatField} />)}
 
                                         <ChatD
+                                                carId={stockId}
                                             userEmail={userEmail}
                                             chatId={chatId}
                                             makeTrueRead={makeTrueRead}
