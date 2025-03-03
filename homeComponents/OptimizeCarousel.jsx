@@ -1,10 +1,13 @@
+"use client"
 import { useState, useEffect } from "react";
 import { View, Text } from "react-native";
+import { OptimizeCarouselSSR } from "./OptimizeCarouselSSR";
 export default function OptimizeCarousel({ unsoldVehicleCount, error }) {
     const [screenWidth, setScreenWidth] = useState(0);
-
+    const [isHydrated, setIsHydrated] = useState(false);
     // Update screen width on resize
     useEffect(() => {
+        setIsHydrated(true);
         const handleResize = () => setScreenWidth(window.innerWidth);
         handleResize(); // Set the initial width
         window.addEventListener("resize", handleResize);
@@ -17,14 +20,16 @@ export default function OptimizeCarousel({ unsoldVehicleCount, error }) {
 
     const currentBanner = screenWidth <= 640 ? sampleBannerMobile : sampleBanner;
     const [isImageLoaded, setIsImageLoaded] = useState(false);
-
+    if (!isHydrated) {
+        return <OptimizeCarouselSSR unsoldVehicleCount={unsoldVehicleCount} />;
+      }
     return (
         <View
 
             style={{
                 width: '100%',
                 height: screenWidth <= 640 ? 360 : 720, // Adjust for desktop
-         
+
                 overflow: 'hidden',
                 zIndex: -1,
             }}
@@ -91,9 +96,9 @@ export default function OptimizeCarousel({ unsoldVehicleCount, error }) {
                     >
                         Established in 1979, offers affordable, quality used vehicles sourced in Japan.
                     </Text>
-              
+
                 </View>
-       
+
 
 
             </View>

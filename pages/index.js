@@ -7,6 +7,8 @@ import StickyFooter from '../homeComponents/StickyFooter';
 import OptimizeCarousel from '../homeComponents/OptimizeCarousel';
 import { db } from '../lib/firebaseAdmin';
 import HomeHeader from '../headerComponents/HomeHeader';
+import { Suspense } from 'react';
+import { OptimizeCarouselSSR } from '../homeComponents/OptimizeCarouselSSR';
 export async function getServerSideProps() {
 
   try {
@@ -65,10 +67,12 @@ export default function App({ unsoldVehicleCount }) {
   ];
   return (
     <div>
-      <div style={{zIndex: 999}}>
+      <div style={{ zIndex: 999 }}>
         <HomeHeader />
       </div>
-      <OptimizeCarousel unsoldVehicleCount={unsoldVehicleCount} />
+      <Suspense fallback={<OptimizeCarouselSSR unsoldVehicleCount={unsoldVehicleCount} />}>
+        <OptimizeCarousel unsoldVehicleCount={unsoldVehicleCount} />
+      </Suspense>
       <SEOBrandList logos={brand} />
       <SEOTypeList types={types} />
 
