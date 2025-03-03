@@ -1,11 +1,25 @@
-// components/OptimizeCarouselSSR.jsx
-// Server component for initial render
+import React, {useState, useEffect} from "react";
+
+
+
 export function OptimizeCarouselSSR({ unsoldVehicleCount }) {
-    const screenWidth = window.innerWidth;
+    const [height, setHeight] = useState(720); 
+
+    useEffect(() => {
+      // Update height on client-side after hydration
+      const updateHeight = () => {
+        setHeight(window.innerWidth <= 640 ? 360 : 720);
+      };
+  
+      updateHeight(); // Set initial value on mount
+      window.addEventListener('resize', updateHeight);
+  
+      return () => window.removeEventListener('resize', updateHeight);
+    }, []);
     return (
       <div style={{
         width: '100%',
-        height: `${screenWidth <= 640 ? 360 : 720}px`,
+        height: `${height}px`,
         overflow: 'hidden',
         zIndex: -1,
     
