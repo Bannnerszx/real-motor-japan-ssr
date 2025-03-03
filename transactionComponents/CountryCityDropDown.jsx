@@ -26,7 +26,7 @@ const DropDownMake = React.memo(
             if (!data) return;
 
             // Initialize the Web Worker
-            const worker = new Worker(new URL("../loginComponents/firebaseWorker.jsx", import.meta.url));
+            const worker = new Worker(new URL("./firebaseWorker.jsx", import.meta.url));
             setIsFiltering(true);
 
             // Send data and searchQuery to the worker
