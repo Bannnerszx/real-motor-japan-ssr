@@ -1,10 +1,11 @@
 // components/OptimizeCarouselSSR.jsx
 // Server component for initial render
 export function OptimizeCarouselSSR({ unsoldVehicleCount }) {
+    const screenWidth = window.innerWidth;
     return (
       <div style={{
         width: '100%',
-        height: '720px',
+        height: `${screenWidth <= 640 ? 360 : 720}px`,
         overflow: 'hidden',
         zIndex: -1,
     
