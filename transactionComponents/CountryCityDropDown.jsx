@@ -199,7 +199,6 @@ const DropDownMake = React.memo(
         prevProps.selectedValue === nextProps.selectedValue &&
         prevProps.isActive === nextProps.isActive
 );
-
 const CountryCityDropdown = ({ activeDropdown, setActiveDropDown, toggleDropdown, area,
     selectedCountryCode,
     setSelectedCountryCode,
