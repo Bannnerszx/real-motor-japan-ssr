@@ -7,8 +7,10 @@ import StickyFooter from '../homeComponents/StickyFooter';
 import OptimizeCarousel from '../homeComponents/OptimizeCarousel';
 import { db } from '../lib/firebaseAdmin';
 import HomeHeader from '../headerComponents/HomeHeader';
-import { Suspense } from 'react';
+import { Suspense, useState, useEffect } from 'react';
+
 import { OptimizeCarouselSSR } from '../homeComponents/OptimizeCarouselSSR';
+import { HomeSSR } from '../homeComponents/HomeSSR';
 export async function getServerSideProps() {
 
   try {
@@ -65,19 +67,24 @@ export default function App({ unsoldVehicleCount }) {
     { id: '5', name: 'WAGON' },
     { id: '6', name: 'VAN/MINIVAN' }
   ];
+  const [isHydrated, setIsHydrated] = useState(false);
+
+  useEffect(() => {
+    setIsHydrated(true); // Set to true after hydration
+  }, []);
   return (
     <div>
       <div style={{ zIndex: 999 }}>
         <HomeHeader />
       </div>
-      <Suspense fallback={<OptimizeCarouselSSR unsoldVehicleCount={unsoldVehicleCount} />}>
-        <OptimizeCarousel unsoldVehicleCount={unsoldVehicleCount} />
-      </Suspense>
+
+      <OptimizeCarousel unsoldVehicleCount={unsoldVehicleCount} />
+
       <SEOBrandList logos={brand} />
       <SEOTypeList types={types} />
-
-      <HomePage />
-
+    
+      {!isHydrated ? <HomeSSR /> : <HomePage />}
+   
       <StickyFooter />
     </div>
   );

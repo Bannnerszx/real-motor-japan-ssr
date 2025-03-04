@@ -1,7 +1,7 @@
 
 import dynamic from 'next/dynamic';
 import { StyleSheet, Text, View, Animated, TouchableWithoutFeedback, Dimensions, FlatList, Image, ScrollView, TouchableOpacity, Linking, Modal, Pressable } from 'react-native';
-import React, { useEffect, useState, useRef, useContext } from 'react';
+import React, { useEffect, useState, useRef, useContext, Suspense } from 'react';
 import Svg, { Path, G, Mask, Defs, ClipPath } from "react-native-svg";
 const Ionicons = dynamic(() => import('@expo/vector-icons/Ionicons'), { ssr: false });
 const FontAwesome5 = dynamic(() => import('@expo/vector-icons/FontAwesome5'), { ssr: false });
@@ -14,7 +14,6 @@ const SearchByTypes = dynamic(() => import('./SearchByTypes'), { ssr: false });
 const HowToBuySection = dynamic(() => import('./HowToBuySection'), { ssr: false });
 import StickyFooter from './StickyFooter';
 const OptimizeCarousel = dynamic(() => import('./OptimizeCarousel'), { ssr: false });
-
 
 const HomePage = ({ }) => {
 
@@ -2710,48 +2709,50 @@ const HomePage = ({ }) => {
                 flex: 3,
                 zIndex: 950
             }}>
-                <SearchQuery
-                    // fetchBodyTypes={fetchBodyTypes}
-                    // fetchModels={fetchModels}
-                    // fetchMakes={fetchMakes}
-                    isFetchingMakes={isFetchingMakes}
-                    screenWidth={screenWidth}
-                    carouselHeight={carouselHeight}
-                    listTranslateY={listTranslateY}
-                    listOpacity={listOpacity}
-                    makes={makes}
-                    carMakes={carMakes}
-                    setCarMakes={setCarMakes}
-                    models={models}
-                    carModels={carModels}
-                    setCarModels={setCarModels}
-                    bodyType={bodyType}
-                    carBodyType={carBodyType}
-                    setCarBodyType={setCarBodyType}
-                    minPriceData={minPriceData}
-                    maxPriceData={maxPriceData}
-                    minPrice={minPrice}
-                    setMinPrice={setMinPrice}
-                    maxPrice={maxPrice}
-                    setMaxPrice={setMaxPrice}
-                    years={years}
-                    carMinYear={carMinYear}
-                    setCarMinYear={setCarMinYear}
-                    carMaxYear={carMaxYear}
-                    setCarMaxYear={setCarMaxYear}
-                    minMileageData={minMileageData}
-                    maxMileageData={maxMileageData}
-                    minMileage={minMileage}
-                    setMinMileage={setMinMileage}
-                    maxMileage={maxMileage}
-                    setMaxMileage={setMaxMileage}
-                    activeDropdown={activeDropdown}
-                    toggleDropdown={toggleDropdown}
-                    isActive={isActive}
-                    setIsActive={setIsActive}
-                    handleTextChange={handleTextChange}
-                // handleSearch={handleSearch}
-                />
+  
+                    <SearchQuery
+                        // fetchBodyTypes={fetchBodyTypes}
+                        // fetchModels={fetchModels}
+                        // fetchMakes={fetchMakes}
+                        isFetchingMakes={isFetchingMakes}
+                        screenWidth={screenWidth}
+                        carouselHeight={carouselHeight}
+                        listTranslateY={listTranslateY}
+                        listOpacity={listOpacity}
+                        makes={makes}
+                        carMakes={carMakes}
+                        setCarMakes={setCarMakes}
+                        models={models}
+                        carModels={carModels}
+                        setCarModels={setCarModels}
+                        bodyType={bodyType}
+                        carBodyType={carBodyType}
+                        setCarBodyType={setCarBodyType}
+                        minPriceData={minPriceData}
+                        maxPriceData={maxPriceData}
+                        minPrice={minPrice}
+                        setMinPrice={setMinPrice}
+                        maxPrice={maxPrice}
+                        setMaxPrice={setMaxPrice}
+                        years={years}
+                        carMinYear={carMinYear}
+                        setCarMinYear={setCarMinYear}
+                        carMaxYear={carMaxYear}
+                        setCarMaxYear={setCarMaxYear}
+                        minMileageData={minMileageData}
+                        maxMileageData={maxMileageData}
+                        minMileage={minMileage}
+                        setMinMileage={setMinMileage}
+                        maxMileage={maxMileage}
+                        setMaxMileage={setMaxMileage}
+                        activeDropdown={activeDropdown}
+                        toggleDropdown={toggleDropdown}
+                        isActive={isActive}
+                        setIsActive={setIsActive}
+                        handleTextChange={handleTextChange}
+                    // handleSearch={handleSearch}
+                    />
+          
                 <View style={{ flexDirection: 'row', position: 'relative', overflow: 'hidden' }}>
                     <div
                         style={{

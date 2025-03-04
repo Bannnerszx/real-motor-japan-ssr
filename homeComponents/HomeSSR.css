@@ -1,0 +1,336 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #fff;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.header {
+  background: linear-gradient(90deg, #0000ff 0%, #3333cc 100%);
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+}
+
+.header-icon {
+  margin-right: 10px;
+  font-size: 20px;
+}
+
+.header-text {
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.search-form {
+  background-color: white;
+  padding: 20px 5px;
+  border-bottom: 1px solid #e0e0e0;
+  width: 100%;
+  /* Ensures it takes full width on smaller screens */
+  max-width: 1280px;
+  /* Prevents it from exceeding 1280px */
+  margin: 0 auto;
+  /* Centers it */
+
+  flex-direction: column;
+  align-items: center;
+  z-index: 999;
+  margin-top: -32px;
+}
+
+/* Make it more responsive for smaller screens */
+@media (max-width: 1024px) {
+  .search-form {
+    width: 95%;
+    /* Reduce width on tablets */
+    padding: 15px 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-form {
+    width: 90%;
+    /* Reduce width on smaller screens */
+    padding: 10px;
+    margin-top: -20px;
+    /* Adjust margin */
+  }
+}
+
+@media (max-width: 480px) {
+  .search-form {
+    width: 100%;
+    /* Full width for mobile */
+    padding: 8px;
+    margin-top: -10px;
+    /* Adjust margin */
+  }
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+}
+
+.form-group {
+  flex: 1;
+  min-width: 250px;
+  padding: 0 10px;
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230000ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+}
+
+.search-input-container {
+  flex: 2;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.search-button-container {
+  flex: 1;
+  max-width: 200px;
+}
+
+.search-button {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #0000ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-button:hover {
+  background-color: #0000cc;
+}
+
+@media (max-width: 768px) {
+  .form-group {
+    flex: 0 0 100%;
+  }
+
+  .search-button-container {
+    max-width: 100%;
+  }
+}
+
+/* Scroll Container */
+.scroll-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Ensures even spacing */
+  overflow: hidden;
+  width: 100vw; /* Full screen width */
+  max-width: 100%; /* Ensures no overflow */
+  margin: 0 auto;
+  padding: 10px 20px; /* Add padding to prevent edge-cutoff */
+  box-sizing: border-box; /* Ensures padding doesn't increase width */
+}
+
+/* Gradient Overlays */
+.gradient-left,
+.gradient-right {
+  position: absolute;
+  top: 0;
+  width: 80px;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.gradient-left {
+  left: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+}
+
+.gradient-right {
+  right: 0;
+  background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+}
+
+/* Scrollable Content */
+.scroll-content {
+  display: flex;
+  flex: 1; /* Makes it take full width */
+  overflow-x: auto;
+  gap: 20px; /* Adjust spacing between items */
+  padding: 10px 20px;
+  scroll-behavior: smooth;
+  white-space: nowrap;
+  justify-content: space-between; /* Ensures even spacing */
+  align-items: center;
+}
+
+/* Hide scrollbar for cleaner look */
+.scroll-content::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* Buttons inside scroll */
+.scroll-item {
+  font-weight: bold;
+  text-align: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 15px;
+  white-space: nowrap;
+}
+
+.scroll-item:hover {
+  color: blue;
+}
+
+/* Divider */
+.divider {
+  width: 1px;
+  height: 100%;
+  background-color: black;
+};
+
+.makers-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.makers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.makers-header h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+.view-all {
+  background-color: #0052ff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.view-all:hover {
+  background-color: #0043cc;
+}
+.makers-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  justify-items: center; /* Horizontally centers grid items */
+  align-items: center;   /* Vertically centers grid items */
+}
+
+.maker-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  /* Default style for PC */
+  width: 180px;  /* or font-size: 120px; */
+}
+
+@media screen and (max-width: 640px) {
+  .maker-item {
+    /* Mobile override */
+    width: 90px;  /* or font-size: 60px; */
+  }
+}
+
+.maker-logo {
+  width: 100%;
+  aspect-ratio: 1;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  background-color: #fff;
+}
+
+.maker-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.maker-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.maker-count {
+  font-size: 14px;
+  color: #666;
+}
+
+@media (max-width: 1024px) {
+  .makers-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .makers-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .makers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .makers-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+

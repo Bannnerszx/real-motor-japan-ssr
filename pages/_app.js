@@ -6,6 +6,7 @@ import { AuthProvider } from '../apiContext/AuthProvider';
 import { initializeAppCheckIfNeeded } from '../firebaseConfig/initAppCheck';
 import '../assets/reactimage.css';
 import '../headerComponents/homeHeaderStyle.css';
+import '../homeComponents/HomeSSR.css';
 function MyApp({ Component, pageProps }) {
   const [isAppCheckReady, setIsAppCheckReady] = useState(false);
 

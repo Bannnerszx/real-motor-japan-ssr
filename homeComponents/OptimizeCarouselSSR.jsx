@@ -1,88 +1,88 @@
-import React, {useState, useEffect} from "react";
-
+import React, { useState, useEffect } from "react";
 
 
 export function OptimizeCarouselSSR({ unsoldVehicleCount }) {
-    const [height, setHeight] = useState(720); 
+  const [height, setHeight] = useState(0);
 
-    useEffect(() => {
-      // Update height on client-side after hydration
-      const updateHeight = () => {
-        setHeight(window.innerWidth <= 640 ? 360 : 720);
-      };
-  
-      updateHeight(); // Set initial value on mount
-      window.addEventListener('resize', updateHeight);
-  
-      return () => window.removeEventListener('resize', updateHeight);
-    }, []);
-    return (
+  useEffect(() => {
+    // Update height on client-side after hydration
+    const updateHeight = () => {
+      setHeight(window.innerWidth <= 640 ? 360 : 720);
+    };
+
+    updateHeight(); // Set initial value on mount
+    window.addEventListener('resize', updateHeight);
+
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
+  const sampleBanner = "/samplebanner3.webp"; // Desktop banner image
+  const sampleBannerMobile = "/samplebannerMobile.webp"; 
+  return (
+    <div style={{
+      width: '100%',
+      height: `${height}px`,
+      overflow: 'hidden',
+      zIndex: -1,
+
+    }}>
+   <img
+                src={sampleBanner} // Fallback for older browsers
+                srcSet={`
+      ${sampleBannerMobile} 640w, 
+      ${sampleBanner} 1280w
+    `}
+                sizes="(max-width: 640px) , (min-width: 641px) "
+                alt="Hero Banner"
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                }}
+            />
       <div style={{
-        width: '100%',
-        height: `${height}px`,
-        overflow: 'hidden',
-        zIndex: -1,
-    
+        position: 'absolute',
+        inset: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.35)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
       }}>
-        <img
-          src="/samplebanner3.webp"
-          srcSet="
-           /samplebannerMobile.webp 640w, 
-           /samplebanner3.webp 1280w
-          "
-          sizes="(max-width: 640px) 100vw, 100vw"
-          alt="Hero Banner"
-          style={{
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: 'center'
-          }}
-          fetchPriority="high"
-        />
         <div style={{
+          padding: '10px',
+          width: '100%',
+          maxWidth: '1280px',
           position: 'absolute',
-          inset: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.35)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center'
+          left: '10px',
+          top: '120px'
         }}>
-          <div style={{
-            padding: '10px',
-            width: '100%',
-            maxWidth: '1280px',
-            position: 'absolute',
-            left: '10px',
-            top: '120px'
+          <h1 style={{
+            color: 'white',
+            fontWeight: 'bold',
+            fontSize: '32px',
+            opacity: 1,
+            textAlign: 'center',
+            letterSpacing: '1px',
+            textShadow: '2px 2px 4px rgba(0,0,0,0.75)'
           }}>
-            <h1 style={{
-              color: 'white',
-              fontWeight: 'bold',
-              fontSize: '32px',
-              opacity: 1,
-              textAlign: 'center',
-              letterSpacing: '1px',
-              textShadow: '2px 2px 4px rgba(0,0,0,0.75)'
-            }}>
-              REAL MOTOR JAPAN {unsoldVehicleCount}
-            </h1>
-            <p style={{
-              color: 'white',
-              fontWeight: '600',
-              fontSize: '16px',
-              opacity: 1,
-              textAlign: 'center',
-              letterSpacing: '1px',
-              textShadow: '2px 2px 4px rgba(0,0,0,0.75)'
-            }}>
-              Established in 1979, offers affordable, quality used vehicles sourced in Japan.
-            </p>
-          </div>
+            REAL MOTOR JAPAN {unsoldVehicleCount}
+          </h1>
+          <p style={{
+            color: 'white',
+            fontWeight: '600',
+            fontSize: '16px',
+            opacity: 1,
+            textAlign: 'center',
+            letterSpacing: '1px',
+            textShadow: '2px 2px 4px rgba(0,0,0,0.75)'
+          }}>
+            Established in 1979, offers affordable, quality used vehicles sourced in Japan.
+          </p>
         </div>
-        
-        {/* Media queries for responsiveness */}
-        <style jsx>{`
+      </div>
+
+      {/* Media queries for responsiveness */}
+      <style jsx>{`
           @media (min-width: 641px) {
             div {
               height: 720px;
@@ -97,6 +97,6 @@ export function OptimizeCarouselSSR({ unsoldVehicleCount }) {
             }
           }
         `}</style>
-      </div>
-    );
-  }
+    </div>
+  );
+}

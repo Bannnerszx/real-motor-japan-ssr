@@ -5,7 +5,7 @@ import * as admin from 'firebase-admin';
 //*******************//
 admin.initializeApp()
 
-// // Ensure that this code only runs on the server.
+// // // Ensure that this code only runs on the server.
 // if (!admin.apps.length) {
 //   // Construct the service account object from environment variables.
 //   const serviceAccount = {
@@ -47,7 +47,7 @@ admin.initializeApp()
 //   }
 // }
 
-// Ensure Firebase Admin is only initialized once
+// // Ensure Firebase Admin is only initialized once
 // if (!admin.apps.length) {
 //   try {
 //     admin.initializeApp(); // No service account needed in Firebase-hosted environments
