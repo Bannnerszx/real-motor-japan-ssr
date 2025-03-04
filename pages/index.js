@@ -82,9 +82,7 @@ export default function App({ unsoldVehicleCount }) {
 
       <SEOBrandList logos={brand} />
       <SEOTypeList types={types} />
-    
       {!isHydrated ? <HomeSSR /> : <HomePage />}
-   
       <StickyFooter />
     </div>
   );
