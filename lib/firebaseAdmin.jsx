@@ -56,7 +56,6 @@ admin.initializeApp()
 //     console.error('❌ Firebase Admin initialization error:', error);
 //   }
 // }
-
 // Now that the app is initialized, export Firestore and Storage.
 const db = admin.firestore();
 const storage = admin.storage();
